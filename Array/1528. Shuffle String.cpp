@@ -12,7 +12,7 @@ public:
            temp_str[indices[i]] = s[i];
         }
 
-        
+
         string ans = "";
         for(auto it : temp_str)
             ans = ans + it;
