@@ -14,7 +14,7 @@ public:
         }
 
 
-        
+
         n = 0 , m = k;
         while(n <k && m ){
             ans += mat[n++][--m];
