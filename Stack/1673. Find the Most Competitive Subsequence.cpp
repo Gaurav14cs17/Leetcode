@@ -4,7 +4,7 @@ https://leetcode.com/problems/find-the-most-competitive-subsequence/
 */
 
 
-''' priority_queue ''
+''' priority_queue '''
 
 
 class Solution {
