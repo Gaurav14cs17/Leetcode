@@ -10,6 +10,7 @@ https://leetcode.com/problems/max-chunks-to-make-sorted/
 
 */
 
+//Backtracking
 
 class Solution {
 public:
@@ -50,3 +51,38 @@ public:
         return ans;
     }
 };
+
+
+// DP
+
+class Solution {
+public:
+
+    int dp[100];
+
+    int solve( vector<int>&arr , int s_idx , int n , int prev_val = INT_MIN ){
+
+        if( s_idx >= n ) return 0;
+        if(prev_val > *min_element(arr.begin() + s_idx , arr.end() ))
+            return INT_MIN/2;
+
+        int ans = INT_MIN/2;
+
+        for( int i = s_idx ; i<n ; ++i ){
+            int mx_val = *max_element(arr.begin() + s_idx , arr.begin() + i +  1 );
+            int ret_mx_val =  1 + solve( arr , i + 1 , n , mx_val);
+            ans = max( ans , ret_mx_val);
+        }
+
+        return dp[s_idx] = ans;
+    }
+
+    int maxChunksToSorted(vector<int>& arr) {
+        memset(dp,-1,sizeof dp);
+        return solve(arr,0,arr.size(),INT_MIN);
+    }
+};
+
+
+
+
