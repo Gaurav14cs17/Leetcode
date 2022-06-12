@@ -85,4 +85,42 @@ public:
 
 
 
+// Matrix Chain Multiplication
+
+class Solution {
+public:
+    bool check(vector<int>&arr , int start_idx , int mid ,int n ){
+        int mx_value = *max_element(arr.begin() + start_idx , arr.begin() + mid +1 );
+        int mn_value = *min_element(arr.begin() + mid +1 , arr.end());
+        return mx_value <= mn_value;
+    }
+
+    int dp[100][100];
+    int mcm(vector<int>&arr , int start_idx , int n  ){
+
+        if(dp[start_idx][n] != -1 )
+            return dp[start_idx][n];
+
+        if( start_idx == n )
+            return 1;
+
+        int mx = 1;
+        for( int k = start_idx ; k < n ; ++k ){
+             if(check(arr ,  start_idx , k , n  )){
+             int val = mcm( arr , start_idx , k ) + mcm( arr , k +1 , n );
+             mx =  max( mx , val);
+             }
+        }
+        return dp[start_idx][n] = mx;
+    }
+
+    int maxChunksToSorted(vector<int>& arr) {
+        memset(dp,-1,sizeof dp);
+        return mcm(arr , 0 , arr.size()-1);
+    }
+};
+
+
+
+
 
