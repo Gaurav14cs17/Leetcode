@@ -42,3 +42,36 @@ public:
         return *max_element(ans.begin(), ans.end());
     }
 };
+
+// stack
+
+
+
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& nums) {
+        vector<pair<int , int >>v;
+        int n = nums.size();
+
+        for( int i = 0  ; i<n ; ++i )
+            v.push_back({nums[i] , i });
+
+        sort(v.begin() , v.end());
+        int ans = -1;
+        stack<int>st;
+
+        for( int i = 0  ; i<n ; ++i ){
+            if(st.empty()){
+                st.push(v[i].second);
+            }
+            else{
+                if(st.top()<v[i].second)
+                        ans = max( ans , v[i].second - st.top());
+
+                else
+                    st.push(v[i].second);
+            }
+        }
+        return ans;
+    }
+};
