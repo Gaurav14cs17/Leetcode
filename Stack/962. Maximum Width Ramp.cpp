@@ -156,3 +156,51 @@ public:
         return ans;
     }
 };
+
+
+// Binary_search
+
+
+int bs(vector<pair<int ,int >>&st , int val ){
+    int left  = 0 ;
+    int right = st.size()-1;
+    while(left<right){
+        int mid = (left + right)>>1;
+        if(st[mid].first <  val ){
+            right = mid;
+        }
+        else if( st[mid].first > val ){
+            left = mid +1 ;
+        }
+        else{
+            return st[mid].second;
+        }
+    }
+    return st[left].second;
+}
+
+
+
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& nums) {
+        vector<pair<int,int>>st;
+        int n = nums.size();
+        st.push_back({nums[0] , 0});
+        int ans = 0 ;
+
+        for( int i = 1 ; i<n ; ++i ){
+            if(nums[i] >=st.back().first){
+                int idx = bs(st , nums[i]);
+                if( idx < i)
+                    ans = max(ans , i-idx);
+            }
+            else{
+                st.push_back({nums[i] , i});
+            }
+        }
+
+        return ans;
+
+    }
+};
