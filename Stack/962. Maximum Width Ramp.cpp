@@ -110,7 +110,7 @@ public:
 segment tree
 */
 
-const int N = 5e3+5;
+const int N = 5e4+5;
 int seg[4*N];
 
 
