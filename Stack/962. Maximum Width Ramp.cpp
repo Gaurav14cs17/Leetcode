@@ -104,3 +104,55 @@ public:
        return ans;
     }
 };
+
+
+/*
+segment tree
+*/
+
+const int N = 5e3+5;
+int seg[4*N];
+
+
+void update( int node , int l , int r , int idx , int val ){
+    if( idx < l  || idx > r )
+        return ;
+
+    if(l==r){
+        seg[node] = max(seg[node]  , val );
+        return ;
+    }
+
+    int mid = ( l + r )>>1;
+    update( node + node   , l , mid , idx , val);
+    update( node + node + 1 , mid + 1, r , idx , val );
+    seg[node] = max(seg[node+node] , seg[node+node+1]);
+
+}
+
+int query( int node , int l , int r , int ql , int qr ){
+    if(qr < l || r < ql )return 0;
+    if(ql<= l && r<= qr) return seg[node];
+    int mid = (l + r )>>1;
+    int left = query( node + node , l, mid , ql , qr);
+    int right = query(node+node+1 , mid+1 , r , ql , qr);
+    return max(left , right);
+}
+
+
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& nums) {
+        int n = nums.size();
+        int ans = 0 ;
+        memset(seg , 0 , sizeof seg);
+        for( int i = n-1 ; i>=0 ; --i ){
+            int idx = query( 1 , 0, N-1 , nums[i] , N-1);
+            if(idx > i )
+                ans = max(ans , idx - i);
+
+            update( 1 , 0 , N -1 , nums[i] , i );
+        }
+        return ans;
+    }
+};
