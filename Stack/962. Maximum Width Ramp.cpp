@@ -43,7 +43,7 @@ public:
     }
 };
 
-// stack
+// stack + sorting
 
 
 
@@ -73,5 +73,34 @@ public:
             }
         }
         return ans;
+    }
+};
+
+
+// monotonic stack
+
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& nums) {
+        int n = nums.size();
+        stack<int>st;
+        /*
+          if index bassed : 1) 3-6  -> -3
+                            2) 5-2  ->  3
+        */
+         for( int i = 0  ; i<n ; ++i ){
+             if(st.empty())
+                 st.push(i);
+             else if (nums[i] < nums[st.top()])
+                 st.push(i);
+         }
+         int ans = 0 ;
+         for( int i = n-1 ; i>=0 ; --i ){
+             while(!st.empty() && nums[i] >= nums[st.top()]){
+                 ans =  max( ans , i - st.top());
+                 st.pop();
+             }
+         }
+       return ans;
     }
 };
