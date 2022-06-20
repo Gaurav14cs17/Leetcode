@@ -6,12 +6,10 @@ class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
         int n = nums.size();
-
         vector<int>v = nums;
         int l = 0;
         int r = n-1;
         sort(v.begin() , v.end());
-
         while(l < r ){
             if(v[l]==nums[l]){
                 ++l;
@@ -23,10 +21,8 @@ public:
                 break;
             }
         }
-
         if( r > l )
             return r- l +1;
-
         return 0;
     }
 };
