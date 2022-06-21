@@ -36,7 +36,10 @@ public:
         }
       string ans = "";
       while(!st.empty()){
-          ans = ans + st.top().first;
+
+         // Memory Limit Exceeded
+         // ans = ans + st.top().first;
+         ans += st.top().first;
           st.pop();
       }
       reverse(ans.begin() , ans.end());
